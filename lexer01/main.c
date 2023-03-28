@@ -4,7 +4,6 @@ typedef enum Token {
   Mais,
 	Menos,
 	Multiplicacao,
-	Potencia,
 	Divisao,
 	Indeterminado,
 	Nulo
@@ -12,7 +11,7 @@ typedef enum Token {
 
 typedef struct Digito {
   Token token;
-  char caracter[2];
+  char caracter;
 }Digito;
 
 typedef Digito * Texto;
@@ -20,44 +19,31 @@ typedef Digito * Texto;
 char tokenizar(char *texto, int tamanho){
 	Texto novo;
   novo = malloc (sizeof(Digito));
-	
-	for (int i = 0; i < tamanho; i++) {
-		novo->caracter[1] = NULL;
-		
+  
+	int i = 0;
+	for (i = 0; i < tamanho; i++) {
     if(texto[i] == ' ' || texto[i] == '\n' || texto[i] == '\0')
 			novo->token = Nulo;
 		else if(texto[i] == '+')
 			novo->token = Mais;
 		else if(texto[i] == '-')
 			novo->token = Menos;
-		else if(texto[i] == '*'){
-			if(texto[i+1] == '*'){
-				novo->token = Potencia;
-				novo->caracter[1] = texto[i];
-				i++;
-			}
-			else{
-				novo->token = Multiplicacao;	
-			}
-		}	
+		else if(texto[i] == '*')
+			novo->token = Multiplicacao;
 		else if(texto[i] == '/')
 			novo->token = Divisao;
 		else
 			novo->token = Indeterminado;
 		
-		novo->caracter[0] = texto[i];
+		novo->caracter = texto[i];
 
-		if(novo->token != Nulo){
-			printf("\t%s -> ", 
+		if(novo->token != Nulo)
+			printf("\t%s -> %c,\n", 
 				(novo->token == Mais) ? "Mais" :
 	      (novo->token == Menos) ? "Menos" :
 				(novo->token == Multiplicacao) ? "Multiplicacao" :
-				(novo->token == Potencia) ? "Potencia" :
 	      (novo->token == Divisao) ? "Divisao" :
-       	(novo->token == Indeterminado) ? "Indeterminado" : "");
-			printf("%c%c\n", novo->caracter[0], novo->caracter[1]);
-		}
-			
+       	(novo->token == Indeterminado) ? "Indeterminado" : "", novo->caracter);
   }
 	
 	free(novo);
