@@ -87,7 +87,7 @@ char tokenizar(char *texto, int tamanho) {
     } else if (isdigit(texto[i])) {
       novo->token = Inteiro;
 
-      int final = verificaNumero(texto, i, tamanho);
+      int final = ultimoNumero(texto, i, tamanho);
 
       for (int j = i; j <= final; j++) {
         novo->texto[j] = texto[j];
