@@ -31,7 +31,6 @@ int interpreta(){
 		return 1;
 	}
 
-	p = 3;
 	while(ativo){
 		pos = 0;
 		if(a == 0){
