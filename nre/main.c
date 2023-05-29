@@ -5,7 +5,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-uint8_t entrada[256];
+uint8_t entrada[255];
 uint8_t a, pos = 0;
 int p, n = 0, z = 0;
 
