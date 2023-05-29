@@ -73,11 +73,17 @@ int interpreta(){
 		}
 		//OR
 		else if(entrada[p] == 64){
+			p += 1;
+			pos = entrada[p];
 			
+			a = a | pos;
 		}
 		//AND
 		else if(entrada[p] == 80){
+			p += 1;
+			pos = entrada[p];
 			
+			a = a & pos;
 		}
 		//NOT
 		else if(entrada[p] == 96){
@@ -131,7 +137,7 @@ int main(int argc, char **argv) {
 	interpreta();
 	
 	FILE *output_file = fopen("saida.nar", "wb");
-	fwrite(entrada, 1, 240, output_file);
+	fwrite(entrada, 1, 256, output_file);
 
   exit(EXIT_SUCCESS);
 }
