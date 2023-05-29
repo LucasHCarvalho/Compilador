@@ -132,12 +132,12 @@ int main(int argc, char **argv) {
 	//posiciona no começo do arquivo
 	fseek(input_file, 0, SEEK_SET);
 	//insere na variavel entrada
-	fread(&entrada, 256, 1, input_file);
+	fread(&entrada, 255, 1, input_file);
 
 	interpreta();
 	
 	FILE *output_file = fopen("saida.nar", "wb");
-	fwrite(entrada, 1, 256, output_file);
+	fwrite(entrada, 1, 255, output_file);
 
   exit(EXIT_SUCCESS);
 }
