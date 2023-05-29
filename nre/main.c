@@ -55,7 +55,7 @@ int interpreta(){
 		else if(entrada[p] == 16){
 			p += 1;
 			pos = entrada[p];
-
+			
 			entrada[pos] = a;
 		}
 		//LDA
@@ -82,7 +82,7 @@ int interpreta(){
 		}
 		//NOT
 		else if(entrada[p] == 96){
-			a *= -1;
+			a = (a * -1) - 1;
 		}
 		//JMP
 		else if(entrada[p] == 128){
@@ -113,22 +113,26 @@ int interpreta(){
 
 int main(int argc, char **argv) {
   //valida Argumentos passados, pedindo necessáriamente 2
-  if(argc != 2)
-    printf("Favor inserir 2 argumentos:\nEx.: main entrada.nar\n");
-  else{
-    FILE* output_file = fopen(argv[1], "rb");
-    //Tendo os arquivos verifica se pode abrir o arquivo passado
-    if(!output_file)
-      printf("Arquivo inválido\n");
-    else{
-      //posiciona no começo do arquivo
-      fseek(output_file, 0, SEEK_SET);
-      //insere na variavel MBR
-      fread(&entrada, 256, 1, output_file);
+  if(argc != 2){
+		printf("Favor inserir 2 argumentos:\nEx.: main entrada.nar\n");
+		return 1;
+	}    
+  
+	FILE* input_file = fopen(argv[1], "rb");
+	//Tendo os arquivos verifica se pode abrir o arquivo passado
+	if(!input_file){
+		printf("Arquivo inválido\n");
+		return 1;
+	} 
+	//posiciona no começo do arquivo
+	fseek(input_file, 0, SEEK_SET);
+	//insere na variavel entrada
+	fread(&entrada, 256, 1, input_file);
 
-			interpreta();
-    }    
-  } 
+	interpreta();
+	
+	FILE *output_file = fopen("saida.nar", "wb");
+	fwrite(entrada, 1, 240, output_file);
 
   exit(EXIT_SUCCESS);
 }
